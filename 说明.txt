@@ -1,0 +1,17 @@
+1. 下载Python
+https://www.python.org/ftp/python/2.7.11/python-2.7.11.msi
+
+2, 安装Python
+1). 安装到 C:\Python27\
+2). 安装页面第二页，拉到最下面，点最后一项"Add python.exe to Path"的那个图标, 选第一个选项.
+
+3. 双击运行 安装python库.bat
+
+
+使用:
+双击运行 baidu.bat
+
+输入关键字，跟在网页上一样。
+查询完成后，可以在同一目录上看到，以输入关键字命名的结果文件
+
+按回车后，可以继续查询
