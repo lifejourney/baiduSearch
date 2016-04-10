@@ -98,7 +98,7 @@ def weixinFromBufWithAnchor(anchorString, buf, fromPos, endPos):
     
     anchorPos = buf.find(anchorString, fromPos, endPos)
     if anchorPos >= 0:
-        checkEndPos = anchorPos + 50
+        checkEndPos = anchorPos + 100
         if checkEndPos > bufLen:
             checkEndPos = bufLen
         
@@ -137,22 +137,35 @@ if (sysstr =="Windows"):
     gClearCmd = 'cls'
 else:
     gClearCmd = 'clear'
-            
-if len(sys.argv) > 1:
-    index = 1
-    
-    gResultFileName = gResultPath
-    
-    while index < len(sys.argv):
-        gKeyWordString = gKeyWordString + sys.argv[index]
-        gResultFileName = gResultFileName + sys.argv[index]
-        index = index + 1
 
-        if (index < len(sys.argv)):
+if len(sys.argv) > 1:
+    
+    keyWordsArray = []
+    index = 1
+    while index < len(sys.argv):
+        argValue = sys.argv[index]
+        index = index + 1
+        
+        if argValue.startswith("--output"):
+            gResultPath = argValue.strip("--output")
+            continue
+        
+        keyWordsArray.append(argValue)
+
+    gResultFileName = gResultPath
+
+    index = 0
+    while index < len(keyWordsArray):
+        gKeyWordString = gKeyWordString + keyWordsArray[index]
+        gResultFileName = gResultFileName + keyWordsArray[index]
+        
+        if (index+1 < len(keyWordsArray)):
             gKeyWordString = gKeyWordString + '%20'
             gResultFileName = gResultFileName + ' '
         else:
             gResultFileName = gResultFileName + '.txt'
+        
+        index = index + 1
 
 else:
     exit()
@@ -165,7 +178,7 @@ pageIndex = 1
 
 os.system(gClearCmd)
 if not os.path.exists(gResultPath):
-    os.mkdir(gResultPath)
+    os.makedirs(gResultPath)
 
 while (gSearchURL <> '' and pageIndex <= 100):
     print "page %d: " %pageIndex,
